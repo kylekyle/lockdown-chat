@@ -8,7 +8,14 @@ Instructors can see every message sent in LockDown Chat, while students can only
 
 ## Deploying
 
-LockDown Chat is written in Ruby 2.7.1 and built atop the [Roda routing tree web toolkit](https://github.com/jeremyevans/roda). I recommend installing Ruby from [RVM](https://rvm.io/). To project dependencies, run: 
+LockDown Chat is written in Ruby 2.7 and built atop the [Roda routing tree web toolkit](https://github.com/jeremyevans/roda). The service script assumes that ruby was installed using [RVM](https://rvm.io/) and the gemset is aliased as follows: 
+
+```bash
+$ rvm alias create lockdown-chat ruby-2.7.1@lockdown-chat --create
+$ rvm use lockdown-chat
+```
+
+To install project dependencies, run: 
 
 ```bash
 $ git clone https://github.com/kylekyle/lockdown-chat
@@ -29,6 +36,19 @@ SESSION_SECRET=
 
 While you can pass certificate inormation directly to the [Puma](https://github.com/puma/puma) backend, I recommend using a reverse proxy like [nginx](https://www.nginx.com/). See the config directory for an [example nginx config](config/nginx.conf).
 
+To get a free certificate from [Let's Encrypt!](https://letsencrypt.org), do the following:
+
+```bash 
+$ apt install certbot
+$ certbot -d LOCKDOWN_CHAT_SERVER_DOMAIN --nginx
+```
+
+You can automatically renew the certificate by running `crontab -e` and adding the following line:
+
+```
+12 3 * * * certbot renew --post-hook "service nginx restart" -q
+```
+
 To configure the server to start automatically when you boot:
 
 ```bash
@@ -40,7 +60,6 @@ To configure the server to start automatically when you boot:
 ## Security
 
 End user sessions are stored as [encrypted cookies](http://roda.jeremyevans.net/rdoc/classes/Roda/RodaPlugins/Sessions.html) on the client. The server also has a strict [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP). Here is the CSP as articulated using [Roda's `content_security_policy` plugin](https://roda.jeremyevans.net/rdoc/classes/Roda/RodaPlugins/ContentSecurityPolicy.html): 
-
 ```ruby 
 plugin :content_security_policy do |csp|
   csp.default_src :none
