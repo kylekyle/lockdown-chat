@@ -1,5 +1,7 @@
 # LockDown Chat
 
+The West Point instance is hosted at https://lockdown.compute.army/.
+
 LockDown Chat is a service that students taking assessment with [Respondus LockDown Browser](https://web.respondus.com/he/lockdownbrowser/) can use to ask their instructors questions. 
 
 Instructors can see every message sent in LockDown Chat, while students can only see messages addressed specifically to them or the *Everyone* group. 
