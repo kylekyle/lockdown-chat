@@ -1,0 +1,17 @@
+# /etc/systemd/system/lockdown-chat.service
+
+[Unit]
+Description=LockDown Chat Server
+Wants=nginx.service
+
+[Service]
+Type=simple
+WorkingDirectory=/root/lockdown-chat/
+Environment=RACK_ENV=production
+ExecStartPre=/root/.rbenv/shims/bundle 
+ExecStart=/root/.rbenv/shims/bundle exec "puma -b tcp://0.0.0.0:9393 config.ru"
+ExecStop=/bin/kill -- $MAINPID
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

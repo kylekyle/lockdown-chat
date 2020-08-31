@@ -1,0 +1,20 @@
+script src="/dist/chat.bundle.js" data-instructor=instructor.to_s data-id=id
+
+.row
+  #title.col-8.offset-2
+    h3 =title
+.row
+  #messages.col-6.offset-2
+  #users.col-2
+
+- if instructor
+  .row
+    .input-group.col-8.offset-2
+      .input-group-prepend
+        .input-group-text To
+        select#to.selectpicker.dropup data-live-search="true" data-width="100%"
+.row
+  .input-group.col-8.offset-2
+    .input-group-prepend
+      .input-group-text Message
+      input#message placeholder="Enter your message in markdown here."
