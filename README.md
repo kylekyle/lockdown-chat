@@ -11,6 +11,7 @@ Instructors can see every message sent in LockDown Chat, while students can only
 LockDown Chat is written in Ruby 2.7 and built atop the [Roda routing tree web toolkit](https://github.com/jeremyevans/roda). The service script assumes that ruby was installed using [RVM](https://rvm.io/) and the gemset is aliased as follows: 
 
 ```bash
+$ rvm install 2.7.1
 $ rvm alias create lockdown-chat ruby-2.7.1@lockdown-chat --create
 $ rvm use lockdown-chat
 ```
